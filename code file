@@ -1,0 +1,64 @@
+#dynamic-longestRepeated-suseq
+import timeit
+import sys
+import os
+def FindMax(a,b):
+    maximum=max(a,b)
+    return maximum
+def returnSubarr(str,subarry,strlen):
+    for i in range(0, strlen):
+        for j in range(0, strlen):
+            if(str[i]==str[j] and i!=j):
+                subarry[i][j]= subarry[i][j]+1
+            else:
+                subarry[i][j]=subarry[i][j]
+    return subarry
+
+def maxoccur(strlen,subarry):
+    res = ''
+    maxval=[0 for i in range(strlen)]
+    for i in range(0,strlen):
+        for j in range(0,strlen):
+            if(subarry[i][j]>0):            #combining in smaller subarrays
+                maxval[i]=maxval[i]+1
+                subarry[i][j]=subarry[j][i]=0
+    max=0
+    for i in range(0,strlen):
+        if(maxval[i]>0):
+            if(maxval[i]==max):
+                res+=str[i]
+            elif(maxval[i]>max):
+                max=maxval[i]
+                res= ""
+                res+=str[i]
+
+    return res
+                
+
+    
+def FindSubSeq(str):
+    strlen = len(str)
+    subarry = [[0 for i in range(strlen)] for j in range(strlen)]
+    subarry=returnSubarr(str,subarry,strlen)
+    res=maxoccur(strlen,subarry)
+    return res
+
+str=input()
+val=10000
+start = timeit.default_timer()
+if str:
+    for i in range(0,len(str)):
+        if(str[i].isdigit()):
+            print("invalid string!!")
+            exit(1)
+else:
+    print("invalid string!!")
+    exit(1)
+res=FindSubSeq(str)
+end = timeit.default_timer()
+print(res)
+timetrack=end-start
+timetrack*=val
+print("\ntime taken:")
+print(timetrack)
+os.system("pause")
